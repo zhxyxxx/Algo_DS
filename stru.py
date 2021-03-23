@@ -51,44 +51,46 @@ myddict['a'] += 1
 print(myddict)
 '''
 
-#binary tree
-class node:
+
+# binary tree
+class Node:
     def __init__(self, key):
         self.key = key
         self.left = None
         self.right = None
 
-class bitree:
-    def __init__(self, root):
-        self.root = node(root)
 
-    def insert(self, key, n, lr) -> node:
+class BiTree:
+    def __init__(self, root):
+        self.root = Node(root)
+
+    def insert(self, key, n, lr) -> Node:
         if lr == 0:
-            assert n.left == None
-            n.left = node(key)
+            assert n.left is None
+            n.left = Node(key)
             return n.left
         else:
-            assert n.right == None
-            n.right = node(key)
+            assert n.right is None
+            n.right = Node(key)
             return n.right
 
     # traversal
     def preorder(self, tree):
-        if tree == None:
+        if tree is None:
             return
         print(tree.key, end=' ')
         self.preorder(tree.left)
         self.preorder(tree.right)
 
     def inorder(self, tree):
-        if tree == None:
+        if tree is None:
             return
         self.inorder(tree.left)
         print(tree.key, end=' ')
         self.inorder(tree.right)
 
     def postorder(self, tree):
-        if tree == None:
+        if tree is None:
             return
         self.postorder(tree.left)
         self.postorder(tree.right)
@@ -107,13 +109,14 @@ class bitree:
             print()
 
 
-#BST
-class BST(bitree):
+# BST
+class BST(BiTree):
     def __init__(self, root):
         super().__init__(root)
 
     def insert(self, key):
         n = self.root
+        parent = n
         while n:
             parent = n
             if key < n.key:
@@ -121,11 +124,11 @@ class BST(bitree):
             else:
                 n = n.right
         if key < parent.key:
-            parent.left = node(key)
+            parent.left = Node(key)
         else:
-            parent.right = node(key)
+            parent.right = Node(key)
 
-    def search(self, key) -> node:
+    def search(self, key) -> Node:
         n = self.root
         while n:
             if key < n.key:
@@ -142,21 +145,21 @@ class BST(bitree):
         dire = 0
         while n:
             if key == n.key:
-                if n.left==None and n.right==None:
+                if n.left is None and n.right is None:
                     if dire == -1:
                         parent.left = None
                     elif dire == 1:
                         parent.right = None
                     else:
                         self.root = None
-                elif n.left==None:
+                elif n.left is None:
                     if dire == -1:
                         parent.left = n.right
                     elif dire == 1:
                         parent.right = n.right
                     else:
                         self.root = n.right
-                elif n.right==None:
+                elif n.right is None:
                     if dire == -1:
                         parent.left = n.left
                     elif dire == 1:
@@ -168,7 +171,7 @@ class BST(bitree):
                     subparent = n
                     counter = 0
                     while True:
-                        if subn.left==None:
+                        if subn.left is None:
                             break
                         subparent = subn
                         subn = subn.left

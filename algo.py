@@ -1,5 +1,5 @@
 # GCD
-def GCD(a, b) -> int:
+def gcd(a, b) -> int:
     if a < b:
         buf = b
         b = a
@@ -8,11 +8,12 @@ def GCD(a, b) -> int:
     if r == 0:
         return b
     else:
-        return GCD(b, r)
+        return gcd(b, r)
+
 
 # binary search
-def bisearch(list, key) -> int:
-    length = len(list)
+def bi_search(query, key) -> int:
+    length = len(query)
     l = 0
     r = length-1
     ans = -1
@@ -20,11 +21,44 @@ def bisearch(list, key) -> int:
         if l > r:
             break
         m = (l+r)//2
-        if list[m] > key:
+        if query[m] > key:
             r = m-1
-        elif list[m] < key:
+        elif query[m] < key:
             l = m+1
         else:
             ans = m
             break
     return ans
+
+
+def selection_sort(query):
+    length = len(query)
+    for i in range(length):
+        min_i = i
+        for j in range(i+1, length):
+            if query[j] < query[min_i]:
+                min_i = j
+        query[i], query[min_i] = query[min_i], query[i]
+    return query
+
+
+def insertion_sort(query):
+    length = len(query)
+    for i in range(1, length):
+        j = i-1
+        v = query[i]
+        while query[j] > v and j >= 0:
+            query[j+1] = query[j]
+            j -= 1
+        query[j+1] = v
+    return query
+
+
+def bubble_sort(query):
+    length = len(query)
+    for i in range(length-1):
+        for j in range(i, -1, -1):
+            if query[j] > query[j+1]:
+                query[j], query[j+1] = query[j+1], query[j]
+    return query
+

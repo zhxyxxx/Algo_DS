@@ -1,14 +1,14 @@
 import algo
 import stru
 
-ans = algo.GCD(315, 189)
+ans = algo.gcd(315, 189)
 print(ans)
 
 mylist = [1, 3, 5, 7, 9]
-index = algo.bisearch(mylist, 9)
+index = algo.bi_search(mylist, 9)
 print(index)
 
-tree = stru.bitree(0)
+tree = stru.BiTree(0)
 n1 = tree.insert(1, tree.root, 0)
 n2 = tree.insert(2, tree.root, 1)
 tree.insert(3, n1, 0)
@@ -32,3 +32,7 @@ bst.delete(5)
 bst.delete(6)
 bst.delete(10)
 bst.traversal()
+
+q = [9, 2, 5, 3, 1, 0, -1, 3]
+algo.bubble_sort(q)
+print(q)
