@@ -34,5 +34,11 @@ bst.delete(10)
 bst.traversal()
 
 q = [9, 2, 5, 3, 1, 0, -1, 3]
-algo.bubble_sort(q)
+q = algo.quick_sort(q)
 print(q)
+
+v = [0, 1, 2, 3, 4]
+e = [[0, 1], [1, 2], [0, 2], [2, 3], [0, 3], [3, 4]]
+g = stru.graph(v, e)
+g.DFS(0)
+g.BFS(0)

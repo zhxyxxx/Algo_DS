@@ -190,3 +190,40 @@ class BST(BiTree):
                 parent = n
                 n = n.right
                 dire = 1
+
+
+class graph:
+    def __init__(self, v, edge):
+        self.v = v
+        self.e = [[] for _ in range(len(v))]
+        for e in edge:
+            self.e[e[0]].append(e[1])
+            self.e[e[1]].append(e[0])
+
+    def DFS(self, start):
+        vnum = len(self.v)
+        visited = [False for _ in range(vnum)]
+        stack = deque([start])
+        while stack:
+            v0 = stack.pop()
+            if not visited[v0]:
+                print(v0, end=' ')
+            visited[v0] = True
+            for v in self.e[v0]:
+                if not visited[v]:
+                    stack.append(v)
+        print()
+
+    def BFS(self, start):
+        vnum = len(self.v)
+        visited = [False for _ in range(vnum)]
+        queue = deque([start])
+        while queue:
+            v0 = queue.popleft()
+            if not visited[v0]:
+                print(v0, end=' ')
+            visited[v0] = True
+            for v in self.e[v0]:
+                if not visited[v]:
+                    queue.append(v)
+        print()
