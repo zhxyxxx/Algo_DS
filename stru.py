@@ -192,7 +192,8 @@ class BST(BiTree):
                 dire = 1
 
 
-class graph:
+# graph
+class Graph:
     def __init__(self, v, edge):
         self.v = v
         self.e = [[] for _ in range(len(v))]
@@ -200,7 +201,8 @@ class graph:
             self.e[e[0]].append(e[1])
             self.e[e[1]].append(e[0])
 
-    def DFS(self, start):
+    # search
+    def dfs(self, start):
         vnum = len(self.v)
         visited = [False for _ in range(vnum)]
         stack = deque([start])
@@ -214,7 +216,7 @@ class graph:
                     stack.append(v)
         print()
 
-    def BFS(self, start):
+    def bfs(self, start):
         vnum = len(self.v)
         visited = [False for _ in range(vnum)]
         queue = deque([start])

@@ -1,5 +1,6 @@
 import heapq
 
+
 # GCD
 def gcd(a, b) -> int:
     if a < b:
@@ -79,10 +80,10 @@ def shell_sort(query):
 def heap_sort(query):
     length = len(query)
     heapq.heapify(query)
-    sorted = []
+    sortl = []
     for i in range(length):
-        sorted.append(heapq.heappop(query))
-    return sorted
+        sortl.append(heapq.heappop(query))
+    return sortl
 
 
 def merge(a, b):
@@ -113,8 +114,8 @@ def merge_sort(query):
     mid = length // 2
     a = merge_sort(query[:mid])
     b = merge_sort(query[mid:])
-    sorted = merge(a, b)
-    return sorted
+    sortl = merge(a, b)
+    return sortl
 
 
 def partition(a):

@@ -39,6 +39,6 @@ print(q)
 
 v = [0, 1, 2, 3, 4]
 e = [[0, 1], [1, 2], [0, 2], [2, 3], [0, 3], [3, 4]]
-g = stru.graph(v, e)
-g.DFS(0)
-g.BFS(0)
+g = stru.Graph(v, e)
+g.dfs(0)
+g.bfs(0)
