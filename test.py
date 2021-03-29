@@ -42,3 +42,15 @@ e = [[0, 1], [1, 2], [0, 2], [2, 3], [0, 3], [3, 4]]
 g = stru.Graph(v, e)
 g.dfs(0)
 g.bfs(0)
+
+v2 = range(6)
+e2 = [[0, 1, 6], [0, 2, 4], [1, 3, 3], [4, 1, 2], [2, 4, 3], [4, 3, 1], [2, 5, 6]]
+g2 = stru.Graph(v2, e2)
+path = g2.dijkstra(0)
+print(path)
+
+v3 = range(3)
+e3 = [[0, 1, 8], [1, 0, 3], [2, 1, 2], [0, 2, 5]]
+g3 = stru.DirectedGraph(v3, e3)
+dist = g3.floyd_warshall()
+print(dist)

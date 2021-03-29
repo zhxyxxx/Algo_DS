@@ -3,6 +3,8 @@ from collections import deque
 import heapq
 from collections import defaultdict
 
+MAX = 100
+
 '''
 # list
 mylist = []
@@ -197,9 +199,16 @@ class Graph:
     def __init__(self, v, edge):
         self.v = v
         self.e = [[] for _ in range(len(v))]
+        self.add_edge(edge)
+
+    def add_edge(self, edge):
         for e in edge:
-            self.e[e[0]].append(e[1])
-            self.e[e[1]].append(e[0])
+            if len(e) == 2:
+                weight = 1
+            else:
+                weight = e[2]
+            self.e[e[0]].append((e[1], weight))
+            self.e[e[1]].append((e[0], weight))
 
     # search
     def dfs(self, start):
@@ -211,7 +220,7 @@ class Graph:
             if not visited[v0]:
                 print(v0, end=' ')
             visited[v0] = True
-            for v in self.e[v0]:
+            for v, _ in self.e[v0]:
                 if not visited[v]:
                     stack.append(v)
         print()
@@ -225,7 +234,61 @@ class Graph:
             if not visited[v0]:
                 print(v0, end=' ')
             visited[v0] = True
-            for v in self.e[v0]:
+            for v, _ in self.e[v0]:
                 if not visited[v]:
                     queue.append(v)
         print()
+
+    # shortest path
+    def dijkstra(self, v):
+        vnum = len(self.v)
+        visited = [False for _ in range(vnum)]
+        path = [MAX for _ in range(vnum)]
+        path[v] = 0
+        heap = [(0, v)]
+        while heap:
+            minp, minv = heapq.heappop(heap)
+            if visited[minv]:
+                continue
+            visited[minv] = True
+            for v0, w in self.e[minv]:
+                if not visited[v0] and path[minv]+w < path[v0]:
+                    path[v0] = path[minv] + w
+                    heapq.heappush(heap, (path[v0], v0))
+        return path
+
+    # all-pairs shortest path
+    def floyd_warshall(self):
+        vnum = len(self.v)
+        dist = [[MAX for _ in range(vnum)] for _ in range(vnum)]
+        for i in range(vnum):
+            for v, w in self.e[i]:
+                dist[i][v] = w
+            dist[i][i] = 0
+        for k in range(vnum):
+            for i in range(vnum):
+                for j in range(vnum):
+                    dist[i][j] = min(dist[i][j], dist[i][k]+dist[k][j])
+        return dist
+
+    # minimum spanning tree
+    def kruskal(self):
+        vnum = len(self.v)
+        # TODO
+
+    def prim(self):
+        vnum = len(self.v)
+        # TODO
+
+
+class DirectedGraph(Graph):
+    def __init__(self, v, edge):
+        super().__init__(v, edge)
+
+    def add_edge(self, edge):
+        for e in edge:
+            if len(e) == 2:
+                weight = 1
+            else:
+                weight = e[2]
+            self.e[e[0]].append((e[1], weight))
