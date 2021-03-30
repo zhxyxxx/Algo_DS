@@ -144,3 +144,49 @@ def quick_sort(query):
     query[:mid] = quick_sort(query[:mid])
     query[mid+1:] = quick_sort(query[mid+1:])
     return query
+
+
+# string comparison
+def bf(text: str, pattern: str) -> int:
+    lent = len(text)
+    lenp = len(pattern)
+    for i in range(lent-lenp+1):
+        for j in range(lenp):
+            if text[i+j] != pattern[j]:
+                break
+            if j == lenp-1:
+                return i
+    return -1
+
+
+def create_table(p):
+    i = 0
+    j = -1
+    length = len(p)
+    kmpnext = [-1 for _ in range(length+1)]
+    while i < length:
+        if j == -1 or p[i] == p[j]:
+            i += 1
+            j += 1
+            kmpnext[i] = j
+        else:
+            j = kmpnext[j]
+    return kmpnext
+
+
+def kmp(text: str, pattern: str) -> int:
+    kmpnext = create_table(pattern)
+    lent = len(text)
+    lenp = len(pattern)
+    i = 0
+    j = 0
+    while i < lent and j < lenp:
+        if j == -1 or text[i] == pattern[j]:
+            i += 1
+            j += 1
+        else:
+            j = kmpnext[j]
+    if j == lenp:
+        return i-j
+    else:
+        return -1

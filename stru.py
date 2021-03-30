@@ -54,6 +54,38 @@ print(myddict)
 '''
 
 
+# union find
+class UnionFind:
+    def __init__(self, n):
+        self.parent = [i for i in range(n)]
+        self.rank = [0 for _ in range(n)]
+
+    def find(self, x) -> int:
+        p = self.parent[x]
+        if p == x:
+            return x
+        else:
+            root = self.find(p)
+            self.parent[x] = root
+            return root
+
+    def union(self, x, y):
+        rx = self.find(x)
+        ry = self.find(y)
+        if rx == ry:
+            return
+        elif self.rank[rx] > self.rank[ry]:
+            self.parent[ry] = rx
+        elif self.rank[rx] == self.rank[ry]:
+            self.parent[ry] = rx
+            self.rank[rx] += 1
+        else:
+            self.parent[rx] = ry
+
+    def same(self, x, y) -> bool:
+        return self.find(x) == self.find(y)
+
+
 # binary tree
 class Node:
     def __init__(self, key):
@@ -200,6 +232,7 @@ class Graph:
         self.v = v
         self.e = [[] for _ in range(len(v))]
         self.add_edge(edge)
+        self.elist = edge
 
     def add_edge(self, edge):
         for e in edge:
@@ -274,11 +307,32 @@ class Graph:
     # minimum spanning tree
     def kruskal(self):
         vnum = len(self.v)
-        # TODO
+        self.elist.sort(key=lambda x: x[2])
+        uf = UnionFind(vnum)
+        mst = []
+        for e in self.elist:
+            if not uf.same(e[0], e[1]):
+                mst.append(e)
+                uf.union(e[0], e[1])
+        return mst
 
-    def prim(self):
+    def prim(self, start=0):
         vnum = len(self.v)
-        # TODO
+        visited = [False for _ in range(vnum)]
+        visited[start] = True
+        mst = []
+        heap = []
+        for e, w in self.e[start]:
+            heapq.heappush(heap, (w, e, start))
+        while heap:
+            minw, to, fr = heapq.heappop(heap)
+            if not visited[to]:
+                mst.append([fr, to, minw])
+                visited[to] = True
+                for e, w in self.e[to]:
+                    if not visited[e]:
+                        heapq.heappush(heap, (w, e, to))
+        return mst
 
 
 class DirectedGraph(Graph):

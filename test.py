@@ -54,3 +54,25 @@ e3 = [[0, 1, 8], [1, 0, 3], [2, 1, 2], [0, 2, 5]]
 g3 = stru.DirectedGraph(v3, e3)
 dist = g3.floyd_warshall()
 print(dist)
+
+uf = stru.UnionFind(5)
+uf.union(0, 2)
+uf.union(2, 4)
+uf.union(1, 3)
+print(uf.find(4))
+print(uf.same(1, 2))
+
+v4 = range(6)
+e4 = [[0, 1, 6], [0, 2, 1], [0, 3, 5], [1, 2, 5], [2, 3, 5], [1, 4, 3], [2, 4, 6], [2, 5, 4], [3, 5, 2], [4, 5, 6]]
+g4 = stru.Graph(v4, e4)
+mst1 = g4.kruskal()
+mst2 = g4.prim(4)
+print(mst1)
+print(mst2)
+
+t = "ababbabababaababc"
+p = "ababc"
+match = algo.bf(t, p)
+match2 = algo.kmp(t, p)
+print(match)
+print(match2)
